@@ -1,4 +1,7 @@
 package com.example.directoryservice.entity;
 
-public class ContactType {
+public enum ContactType {
+    PHONE,
+    EMAIL,
+    LOCATION
 }
