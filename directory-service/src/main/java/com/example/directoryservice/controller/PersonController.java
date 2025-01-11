@@ -1,5 +1,6 @@
 package com.example.directoryservice.controller;
 
+import com.example.directoryservice.dto.ContactDto;
 import com.example.directoryservice.dto.PersonDto;
 import com.example.directoryservice.service.PersonService;
 import com.example.directoryservice.service.PhonebookEntryService;
@@ -35,7 +36,7 @@ public class PersonController {
     }
 
     @DeleteMapping(ID_PARAM)
-    public ResponseEntity<Void> deletePersonById(@PathVariable Long id) {
+    public ResponseEntity<Void> deletePersonById(@PathVariable String id) {
         personService.deletePersonById(id);
         return ResponseEntity.noContent().build();
     }
@@ -63,8 +64,8 @@ public class PersonController {
 
     @PutMapping
     public ResponseEntity<PersonDto> updatePerson(@RequestParam("personalId") String personalId,
-                                                  @RequestBody PersonDto personDto) {
-        PersonDto updatedPersonDto = personService.updatePerson(personalId,personDto);
+                                                  @RequestBody ContactDto contactDto) {
+        PersonDto updatedPersonDto = personService.updatePersonContact(personalId,contactDto);
         return ResponseEntity.ok(updatedPersonDto);
     }
 
