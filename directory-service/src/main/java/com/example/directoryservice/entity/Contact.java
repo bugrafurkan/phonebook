@@ -1,9 +1,13 @@
 package com.example.directoryservice.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "contacts")
+@Getter
+@Setter
 public class Contact {
     @Id
     private Long id;

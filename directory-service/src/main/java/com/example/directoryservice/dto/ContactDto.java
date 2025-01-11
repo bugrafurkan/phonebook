@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class ContactDto {
     private Long id;
-    private ContactType type;
+    private ContactType contactType;
     private String contactDetail;
     private String personId;
 

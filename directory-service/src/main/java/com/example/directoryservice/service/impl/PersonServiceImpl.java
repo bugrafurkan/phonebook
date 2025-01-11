@@ -1,33 +1,122 @@
 package com.example.directoryservice.service.impl;
 
+import com.example.directoryservice.dto.ContactDto;
 import com.example.directoryservice.dto.PersonDto;
+import com.example.directoryservice.entity.Contact;
+import com.example.directoryservice.entity.Person;
+import com.example.directoryservice.repository.PersonRepository;
+import com.example.directoryservice.service.ContactService;
 import com.example.directoryservice.service.PersonService;
 
 import java.util.List;
+import java.util.UUID;
 
 public class PersonServiceImpl implements PersonService {
+
+
+    private final PersonRepository personRepository;
+
+    private final ContactService contactService;
+
+    public PersonServiceImpl(PersonRepository personRepository, ContactService contactService) {
+        this.personRepository = personRepository;
+        this.contactService = contactService;
+    }
+
     @Override
     public PersonDto createPerson(PersonDto personDto) {
-        return null;
+        Person person = mapToEntity(personDto);
+        Person savedPerson = personRepository.save(person);
+        return toPersonDto(savedPerson);
+    }
+
+    private Person mapToEntity(PersonDto personDto) {
+        Person person = new Person();
+        person.setId(UUID.randomUUID().toString());
+        person.setFirstName(personDto.getFirstName());
+        person.setLastName(personDto.getLastName());
+        person.setCompany(personDto.getCompany());
+        if (personDto.getContacts() != null) {
+            List<Contact> contacts = mapContacts(personDto.getContacts(), person);
+            person.setConstacts(contacts);
+        }
+        return person;
+    }
+
+    private List<Contact> mapContacts(List<Contact> contactDtos, Person person) {
+        return contactDtos.stream().map(contactDto -> {
+            Contact contact = new Contact();
+            contact.setId(contactDto.getId());
+            contact.setContactType(contactDto.getContactType());
+            contact.setPerson(person);
+            return contact;
+        }).toList();
     }
 
     @Override
     public PersonDto getPersonById(String id) {
-        return null;
+        Person person = personRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Person not found"));
+        return toPersonDto(person);
     }
 
     @Override
-    public PersonDto updatePerson(String personalId, PersonDto personDto) {
-        return null;
+    public PersonDto updatePersonContact(String personalId, ContactDto contactDto) {
+        PersonDto personDto = getPersonById(personalId);
+        if (personDto != null) {
+            Contact contact = new Contact();
+            contact.setId(contactDto.getId());
+            contact.setContactType(contactDto.getContactType());
+            //person durumuna göre karar verelim
+            contact.setPerson(fromDto(personDto));
+            if (personDto.getContacts() != null) {
+                personDto.getContacts().add(contact);
+            }else {
+                personDto.setContacts(List.of(contact));
+            }
+        }
+        return personDto;
     }
 
     @Override
-    public void deletePersonById(Long id) {
-
+    public void deletePersonById(String id) {
+        personRepository.deleteById(id);
     }
 
     @Override
     public List<PersonDto> getAllPersons() {
-        return List.of();
+        List<Person> people = personRepository.findAll();
+        return people.stream()
+                .map(this::toPersonDto)
+                .toList();
+    }
+
+    private PersonDto toPersonDto(Person person) {
+        return PersonDto.builder()
+                .id(person.getId())
+                .firstName(person.getFirstName())
+                .lastName(person.getLastName())
+                .company(person.getCompany())
+                .contacts(person.getConstacts())
+                .build();
+    }
+
+    private Person fromDto(PersonDto personDto) {
+        Person person = new Person();
+
+        if (personDto.getId() != null) {
+            person.setId(personDto.getId());
+        }
+
+        person.setFirstName(personDto.getFirstName());
+        person.setLastName(personDto.getLastName());
+        person.setCompany(personDto.getCompany());
+
+        if (personDto.getContacts() != null) {
+            List<Contact> contacts = mapContacts(personDto.getContacts(), person);
+            person.setConstacts(contacts);
+        }
+
+        return person;
     }
 }
