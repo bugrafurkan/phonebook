@@ -1,4 +1,4 @@
 package com.example.directoryservice.controller;
 
-public class PhonebookServiceController {
+public class PhonebookEntryController {
 }
