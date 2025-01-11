@@ -1,16 +1,15 @@
 package com.example.directoryservice.service.impl;
 
 import com.example.directoryservice.dto.ContactDto;
-import com.example.directoryservice.dto.PersonDto;
 import com.example.directoryservice.entity.Contact;
 import com.example.directoryservice.entity.Person;
 import com.example.directoryservice.repository.ContactRepository;
 import com.example.directoryservice.repository.PersonRepository;
 import com.example.directoryservice.service.ContactService;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.UUID;
 
+@Service
 public class ContactServiceImpl implements ContactService {
 
     private final ContactRepository contactRepository;
