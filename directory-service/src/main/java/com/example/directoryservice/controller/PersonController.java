@@ -17,7 +17,6 @@ public class PersonController {
 
     private static final String BASE_URL = "/api/persons/";
     private static final String ID_PARAM = "/{id}";
-    private static final String SEARCH_PARAM = "/search";
     private final PersonService personService;
     private final PhonebookEntryService phonebookEntryService;
 
