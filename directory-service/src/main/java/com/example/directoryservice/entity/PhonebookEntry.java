@@ -1,9 +1,13 @@
 package com.example.directoryservice.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "phonebook_entries")
+@Getter
+@Setter
 public class PhonebookEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

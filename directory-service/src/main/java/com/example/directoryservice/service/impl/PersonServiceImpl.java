@@ -7,10 +7,12 @@ import com.example.directoryservice.entity.Person;
 import com.example.directoryservice.repository.PersonRepository;
 import com.example.directoryservice.service.ContactService;
 import com.example.directoryservice.service.PersonService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class PersonServiceImpl implements PersonService {
 
 
