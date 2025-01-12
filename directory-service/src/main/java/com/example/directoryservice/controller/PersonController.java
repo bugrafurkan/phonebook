@@ -2,6 +2,7 @@ package com.example.directoryservice.controller;
 
 import com.example.directoryservice.dto.ContactDto;
 import com.example.directoryservice.dto.PersonDto;
+import com.example.directoryservice.entity.Person;
 import com.example.directoryservice.service.PersonService;
 import com.example.directoryservice.service.PhonebookEntryService;
 import org.springframework.http.ResponseEntity;
@@ -67,6 +68,13 @@ public class PersonController {
                                                   @RequestBody ContactDto contactDto) {
         PersonDto updatedPersonDto = personService.updatePersonContact(personalId,contactDto);
         return ResponseEntity.ok(updatedPersonDto);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PersonDto>> getPersonsWithContacts(){
+        List<Person> personList = personService.getAllPersonsWithContacts();
+        List<PersonDto> personDtoList = personService.toPersonDtoliST(personList);
+        return ResponseEntity.ok(personDtoList);
     }
 
 }
