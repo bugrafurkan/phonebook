@@ -10,6 +10,7 @@ import com.example.directoryservice.service.PersonService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -28,8 +29,14 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public PersonDto createPerson(PersonDto personDto) {
         Person person = mapToEntity(personDto);
-        Person savedPerson = personRepository.save(person);
-        return toPersonDto(savedPerson);
+        System.out.println("Saving person: " + person.getId());
+        personRepository.save(person);
+        //System.out.println("Saved person: " + savedPerson);
+        if (person == null) {
+            throw new IllegalStateException("Saved person is null!");
+        }
+
+        return toPersonDto(person);
     }
 
     private Person mapToEntity(PersonDto personDto) {
@@ -94,6 +101,9 @@ public class PersonServiceImpl implements PersonService {
     }
 
     private PersonDto toPersonDto(Person person) {
+        if (Objects.isNull(person)) {
+            throw new IllegalArgumentException("Person must not be null.");
+        }
         return PersonDto.builder()
                 .id(person.getId())
                 .firstName(person.getFirstName())

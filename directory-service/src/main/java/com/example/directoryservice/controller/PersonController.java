@@ -45,6 +45,7 @@ public class PersonController {
         List<PersonDto> allPersons = personService.getAllPersons();
         return ResponseEntity.ok(allPersons);
     }
+
     @GetMapping(ID_PARAM)
     public ResponseEntity<PersonDto> getPersonById(@PathVariable String id) {
         PersonDto personDto = personService.getPersonById(id);
