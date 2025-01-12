@@ -55,6 +55,7 @@ class PersonControllerTest {
         responseDto.setFirstName("Murat");
         responseDto.setLastName("Kaya");
         responseDto.setCompany("Setur");
+        System.out.println("Saving person: " + requestDto);
 
         Mockito.when(personService.createPerson(any(PersonDto.class)))
                 .thenReturn(responseDto);
