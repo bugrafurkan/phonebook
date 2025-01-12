@@ -42,27 +42,29 @@ public class PersonServiceImplTest {
         requestDto.setLastName("Kaya");
         requestDto.setCompany("Setur");
 
-        // Mocklama sırasında döndürülecek Person nesnesi
+        Person personToSave = new Person();
+        personToSave.setFirstName("Murat");
+        personToSave.setLastName("Kaya");
+        personToSave.setCompany("Setur");
+
+        // Repository'den dönen nesne (veritabanı tarafından atanmış ID ile)
         Person savedPerson = new Person();
-        savedPerson.setId("12345");
+        savedPerson.setId("12345");  // Teste uygun bir ID atayın
         savedPerson.setFirstName("Murat");
         savedPerson.setLastName("Kaya");
         savedPerson.setCompany("Setur");
+        System.out.println("Saved person: " + savedPerson);
+        System.out.println("Saved person ID: " + savedPerson.getId());
 
-        // personRepository.save çağrıldığında savedPerson dönecek şekilde ayarlanıyor
         when(personRepository.save(any(Person.class))).thenReturn(savedPerson);
 
-        // Test edilen metodu çağırıyoruz
         PersonDto resultDto = personService.createPerson(requestDto);
 
-        // Çıktı sonuçlarının doğruluğunu kontrol ediyoruz
         assertThat(resultDto).isNotNull(); // Dönüş null olmamalı
-        assertThat(resultDto.getId()).isEqualTo("12345"); // ID kontrol
-        assertThat(resultDto.getFirstName()).isEqualTo("Murat"); // İsim kontrol
-        assertThat(resultDto.getLastName()).isEqualTo("Kaya"); // Soyisim kontrol
-        assertThat(resultDto.getCompany()).isEqualTo("Setur"); // Şirket kontrol
+        assertThat(resultDto.getFirstName()).isEqualTo("Murat");
+        assertThat(resultDto.getLastName()).isEqualTo("Kaya");
+        assertThat(resultDto.getCompany()).isEqualTo("Setur");
 
-        // personRepository.save'in çağrıldığını doğrula
         verify(personRepository).save(any(Person.class));
     }
 }

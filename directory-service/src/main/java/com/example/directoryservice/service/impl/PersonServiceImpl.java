@@ -29,9 +29,12 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public PersonDto createPerson(PersonDto personDto) {
         Person person = mapToEntity(personDto);
-        System.out.println("Saving person: " + person);
+        System.out.println("Saving person: " + person.getId());
         personRepository.save(person);
         //System.out.println("Saved person: " + savedPerson);
+        if (person == null) {
+            throw new IllegalStateException("Saved person is null!");
+        }
 
         return toPersonDto(person);
     }
