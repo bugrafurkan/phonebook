@@ -27,6 +27,9 @@ public class ContactServiceImpl implements ContactService {
         Person person = personRepository.findById(contactDto.getPersonId())
                 .orElseThrow(() -> new RuntimeException("Person not found"));
         contact.setPerson(person);
+        if (contactDto.getLocation() != null) {
+            contact.setLocation(contactDto.getLocation());
+        }
         return contactRepository.save(contact);
     }
 
