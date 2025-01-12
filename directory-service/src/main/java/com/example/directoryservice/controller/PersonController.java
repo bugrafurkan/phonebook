@@ -70,7 +70,7 @@ public class PersonController {
         return ResponseEntity.ok(updatedPersonDto);
     }
 
-    @GetMapping
+    @GetMapping("/with-contacts")
     public ResponseEntity<List<PersonDto>> getPersonsWithContacts(){
         List<Person> personList = personService.getAllPersonsWithContacts();
         List<PersonDto> personDtoList = personService.toPersonDtoliST(personList);
