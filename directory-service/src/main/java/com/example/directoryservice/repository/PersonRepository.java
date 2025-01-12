@@ -8,8 +8,6 @@ import java.util.List;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person, String> {
-    // Person için CRUD işlemleri otomatik olarak sağlanır
 
-    // Özel bir sorgu örneği (metot isimlendirmesi ile)
     List<Person> findByLastName(String lastName);
 }

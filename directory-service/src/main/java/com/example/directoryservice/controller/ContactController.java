@@ -26,12 +26,6 @@ public class ContactController {
 
     @PostMapping
     public ResponseEntity<Void> addContact(@RequestBody ContactDto contactDto) {
-        /**
-         * PersonDto newPersonDto = personService.createPerson(personDto);
-         *         String createdPersonId = newPersonDto.getId();
-         *         URI location = URI.create(BASE_URL  + createdPersonId);
-         *         return ResponseEntity.created(location).build();
-         * */
         String personId = contactDto.getPersonId();
         if (personId == null || personId.isBlank() || !personRepository.existsById(personId) ) {
             return ResponseEntity.badRequest().build();

@@ -9,6 +9,7 @@ import com.example.directoryservice.service.ContactService;
 import com.example.directoryservice.service.PersonService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -100,6 +101,11 @@ public class PersonServiceImpl implements PersonService {
                 .toList();
     }
 
+    @Override
+    public List<Person> getAllPersonsWithContacts() {
+        return personRepository.findAll();
+    }
+
     private PersonDto toPersonDto(Person person) {
         if (Objects.isNull(person)) {
             throw new IllegalArgumentException("Person must not be null.");
@@ -130,5 +136,25 @@ public class PersonServiceImpl implements PersonService {
         }
 
         return person;
+    }
+
+    @Override
+    public List<PersonDto> toPersonDtoliST(List<Person> personList) {
+        List<PersonDto> personDtoList = new ArrayList<>();
+        for(Person person : personList){
+            if (Objects.isNull(person)) {
+                throw new IllegalArgumentException("Person must not be null.");
+            }
+            PersonDto personDto = new PersonDto();
+            personDto.setId(person.getId());
+            personDto.setFirstName(person.getFirstName());
+            personDto.setLastName(person.getLastName());
+            personDto.setCompany(person.getCompany());
+            personDto.setContacts(person.getConstacts());
+            personDtoList.add(personDto);
+        }
+
+
+        return personDtoList;
     }
 }

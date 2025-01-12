@@ -20,4 +20,17 @@ public class Contact {
 
     @Enumerated(EnumType.STRING)
     private ContactType contactType;
+
+    @Column(name = "location")
+    private String location; // Yeni alan
+
+    @PrePersist
+    protected void onCreate() {
+        this.location = fetchDynamicLocation();
+    }
+
+    private String fetchDynamicLocation() {
+        return "İstanbul, Türkiye";
+    }
+
 }

@@ -11,6 +11,6 @@ public class ContactDto {
     private ContactType contactType;
     private String contactDetail;
     private String personId;
-
+    private String location;
 }
 
