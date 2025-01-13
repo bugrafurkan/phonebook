@@ -11,6 +11,7 @@
 <modules>
     <module>directory-service</module>
     <module>report-service</module>
+    <module>api-gateway</module>
 </modules>
 
 <properties>

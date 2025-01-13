@@ -1,9 +1,11 @@
 package com.example.directoryservice.service.impl;
 
 import com.example.directoryservice.dto.ContactDto;
+import com.example.directoryservice.dto.DirectoryEvent;
 import com.example.directoryservice.dto.PersonDto;
 import com.example.directoryservice.entity.Contact;
 import com.example.directoryservice.entity.Person;
+import com.example.directoryservice.kafka.DirectoryEventsProducer;
 import com.example.directoryservice.repository.PersonRepository;
 import com.example.directoryservice.service.ContactService;
 import com.example.directoryservice.service.PersonService;
@@ -19,24 +21,32 @@ public class PersonServiceImpl implements PersonService {
 
 
     private final PersonRepository personRepository;
-
     private final ContactService contactService;
+    private final DirectoryEventsProducer.KafkaProducer kafkaProducer;
 
-    public PersonServiceImpl(PersonRepository personRepository, ContactService contactService) {
+    public PersonServiceImpl(PersonRepository personRepository, ContactService contactService, DirectoryEventsProducer.KafkaProducer kafkaProducer) {
         this.personRepository = personRepository;
         this.contactService = contactService;
+        this.kafkaProducer = kafkaProducer;
     }
 
     @Override
     public PersonDto createPerson(PersonDto personDto) {
         Person person = mapToEntity(personDto);
         System.out.println("Saving person: " + person.getId());
+        //Person savedPerson = personRepository.save(person);
         personRepository.save(person);
-        //System.out.println("Saved person: " + savedPerson);
-        if (person == null) {
+        if (Objects.isNull(person)) {
             throw new IllegalStateException("Saved person is null!");
         }
-
+        DirectoryEvent event = new DirectoryEvent();
+        event.setEventType("PERSON_CREATE");
+        event.setPersonId(person.getId());
+        event.setFirstName(person.getFirstName());
+        event.setLastName(person.getLastName());
+        event.setCompany(person.getCompany());
+        event.setContacts(person.getConstacts());
+        kafkaProducer.sendPersonEvent(event);
         return toPersonDto(person);
     }
 
