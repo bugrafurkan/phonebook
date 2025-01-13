@@ -9,13 +9,14 @@ import com.example.reportservice.repository.ReportRepository;
 import com.example.reportservice.service.ReportService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
+@Service
 public class ReportServiceImpl implements ReportService {
 
     private static final String BASE_URL = "http://localhost:8080/api/reports";

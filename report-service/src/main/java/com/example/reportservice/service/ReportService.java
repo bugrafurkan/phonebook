@@ -4,6 +4,7 @@ import com.example.reportservice.dto.ReportDto;
 
 import java.util.List;
 
+
 public interface ReportService {
     List<ReportDto> getAllReports();
 

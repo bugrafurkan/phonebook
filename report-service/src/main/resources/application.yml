@@ -4,7 +4,8 @@ server:
 spring:
   application:
     name: report-service
-
+  main:
+    allow-bean-definition-overriding: true
   datasource:
     url: jdbc:h2:mem:reportdb
     driverClassName: org.h2.Driver

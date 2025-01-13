@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 public class DirectoryEventsConsumer {
     @Component
-    public class KafkaConsumer {
+    public static class KafkaConsumer {
 
         private final PersonDocumentRepository personDocRepo;
 
@@ -16,7 +16,7 @@ public class DirectoryEventsConsumer {
             this.personDocRepo = personDocRepo;
         }
 
-        @KafkaListener(topics = "people-events", groupId = "report-service-group")
+        @KafkaListener(topics = "directory-events", groupId = "report-service-group")
         public void consumePersonEvent(DirectoryEvent event) {
             if ("PERSON_CREATED".equals(event.getEventType())) {
                 PersonDocument doc = new PersonDocument();

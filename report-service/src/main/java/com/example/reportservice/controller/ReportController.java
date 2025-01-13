@@ -22,7 +22,7 @@ public class ReportController {
         this.reportService = reportService;
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<ReportDto> createReport() {
         ReportDto created = reportService.requestReport();
         return ResponseEntity.ok(created);
@@ -42,7 +42,7 @@ public class ReportController {
         return ResponseEntity.ok(reportDto);
     }
 
-    @PostMapping
+    @PostMapping("/prepare")
     public ResponseEntity<Void> prepareReport(@PathVariable String id) {
         reportService.prepareReportAsync(id);
         return ResponseEntity.ok().build();

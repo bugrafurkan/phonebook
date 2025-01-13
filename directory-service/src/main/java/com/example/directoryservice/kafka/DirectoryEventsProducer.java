@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 public class DirectoryEventsProducer {
     @Component
-    public class KafkaProducer {
+    public static class KafkaProducer {
         private final KafkaTemplate<String, DirectoryEvent> kafkaTemplate;
 
         public KafkaProducer(KafkaTemplate<String, DirectoryEvent> kafkaTemplate) {
