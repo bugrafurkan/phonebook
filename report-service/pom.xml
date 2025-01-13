@@ -38,6 +38,28 @@
         <artifactId>h2</artifactId>
         <scope>runtime</scope>
     </dependency>
+    <dependency>
+        <groupId>io.mongock</groupId>
+        <artifactId>mongock-bom</artifactId>
+        <version>5.2.2</version> <!-- güncel versiyonu kontrol edin -->
+        <type>pom</type>
+        <scope>import</scope>
+    </dependency>
+    <dependency>
+        <groupId>io.mongock</groupId>
+        <artifactId>mongock-springboot</artifactId>
+        <version>5.2.2</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-mongodb</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        <version>2.1.0</version>
+    </dependency>
+
 
     <!-- OpenFeign (eğer başka servise REST çağrısı yaparken kolaylık sağlamak isterseniz) -->
     <dependency>

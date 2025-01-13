@@ -1,0 +1,104 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>api-gateway</artifactId>
+    <groupId>com.example</groupId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <!-- Eğer bir parent POM (multi-module) kullanıyorsanız buraya eklemelisiniz:
+         <parent>
+           <groupId>com.example</groupId>
+           <artifactId>phonebook-microservices</artifactId>
+           <version>1.0.0</version>
+           <relativePath>../pom.xml</relativePath>
+         </parent>
+    -->
+
+    <properties>
+        <!-- Uygun Java versiyonu (Java 17 + Spring Boot 3 en popüler kombinasyon) -->
+        <java.version>18</java.version>
+
+        <!-- Spring Boot sürümü -->
+        <spring-boot.version>3.0.5</spring-boot.version>
+
+        <!-- Spring Cloud sürümü (2022.x hattı “Kelvin”) -->
+        <spring-cloud.version>2022.0.3</spring-cloud.version>
+    </properties>
+
+    <!-- Spring Boot versiyonunu yönetmek için -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring Cloud BOM (2022.0.x) -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2022.0.3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- Spring Boot WebFlux (Gateway üzerinde Netty kullanılıyor) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+
+        <!-- Spring Cloud Gateway Starter -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
+        </dependency>
+
+        <!-- Actuator (sağlık, metrik vb. endpoint'ler) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- İsteğe bağlı: Config Client, Security vb.
+             <dependency>
+               <groupId>org.springframework.cloud</groupId>
+               <artifactId>spring-cloud-starter-config</artifactId>
+             </dependency>
+             <dependency>
+               <groupId>org.springframework.boot</groupId>
+               <artifactId>spring-boot-starter-security</artifactId>
+             </dependency>
+        -->
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Spring Boot Maven Plugin -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

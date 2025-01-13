@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    gateway:
+      routes:
+        - id: persons_route
+          uri: http://directory-service:8081
+          predicates:
+            - Path=/api/persons/**
+        - id: contacts_route
+          uri: http://directory-service:8081
+          predicates:
+            - Path=/api/contacts/**
+        - id: phonebook_entries_route
+          uri: http://directory-service:8081
+          predicates:
+            - Path=/api/phonebook-entries/**
+        - id: report_route
+          uri: http://report-service:8082
+          predicates:
+            - Path=/api/reports/**
