@@ -34,7 +34,7 @@ public class ReportController {
     }
 
     @GetMapping("/getReportById")
-    public ResponseEntity<ReportDto> getReportById(@PathVariable String id) {
+    public ResponseEntity<ReportDto> getReportById(@PathVariable Long id) {
         ReportDto reportDto = reportService.getReportById(id);
         if (Objects.isNull(reportDto)) {
             return ResponseEntity.notFound().build();
@@ -43,7 +43,7 @@ public class ReportController {
     }
 
     @PostMapping("/prepare")
-    public ResponseEntity<Void> prepareReport(@PathVariable String id) {
+    public ResponseEntity<Void> prepareReport(@PathVariable Long id) {
         reportService.prepareReportAsync(id);
         return ResponseEntity.ok().build();
     }

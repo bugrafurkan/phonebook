@@ -1,0 +1,71 @@
+spring:
+  application:
+    name: phonebook-app
+  main:
+    allow-bean-definition-overriding: true
+    web-application-type: reactive
+  # PostgreSQL Configuration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/phonebookdb
+    username: postgres
+    password: 01234
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  # MongoDB Configuration
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: reportdb
+        # Eğer authentication kullanıyorsanız:
+        # username: mongodb_user
+        # password: mongodb_password
+
+  # Kafka Configuration
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: phonebook-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+
+  # Gateway Configuration
+  cloud:
+    gateway:
+      routes:
+        - id: persons_route
+          uri: http://directory-service:8081
+          predicates:
+            - Path=/api/persons/**
+        - id: contacts_route
+          uri: http://directory-service:8081
+          predicates:
+            - Path=/api/contacts/**
+        - id: phonebook_entries_route
+          uri: http://directory-service:8081
+          predicates:
+            - Path=/api/phonebook-entries/**
+        - id: report_route
+          uri: http://report-service:8082
+          predicates:
+            - Path=/api/reports/**
+
+# Feign Configuration
+feign:
+  client:
+    config:
+      default:

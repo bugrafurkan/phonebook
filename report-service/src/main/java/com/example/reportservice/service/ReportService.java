@@ -10,7 +10,7 @@ public interface ReportService {
 
     ReportDto requestReport();
 
-    ReportDto getReportById(String id);
+    ReportDto getReportById(Long id);
 
-    void prepareReportAsync(String id);
+    void prepareReportAsync(Long id);
 }

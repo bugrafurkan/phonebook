@@ -59,14 +59,15 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public ReportDto getReportById(String id) {
-        return reportRepository.findById(id)
+    public ReportDto getReportById(Long id) {
+        return reportRepository.findById(String.valueOf(id))
                 .map(this::toReportDto)
                 .orElse(null);
     }
 
     @Override
-    public void prepareReportAsync(String id) {
+    public void prepareReportAsync(Long ids) {
+        String id = String.valueOf(ids);
         Report report = reportRepository.findById(id).orElse(null);
         if (report == null) return;
 
