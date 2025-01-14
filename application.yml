@@ -3,7 +3,7 @@ spring:
     name: phonebook-app
   main:
     allow-bean-definition-overriding: true
-
+    web-application-type: reactive
   # PostgreSQL Configuration
   datasource:
     url: jdbc:postgresql://localhost:5432/phonebookdb
