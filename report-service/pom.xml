@@ -32,11 +32,11 @@
         <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
 
-    <!-- H2 veya PostgreSQL Driver -->
+    <!--  PostgreSQL Driver -->
     <dependency>
-        <groupId>com.h2database</groupId>
-        <artifactId>h2</artifactId>
-        <scope>runtime</scope>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>42.6.0</version>
     </dependency>
     <dependency>
         <groupId>io.mongock</groupId>
@@ -57,9 +57,13 @@
     <dependency>
         <groupId>org.springdoc</groupId>
         <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-        <version>2.1.0</version>
+        <version>2.3.0</version>
     </dependency>
-
+    <dependency>
+        <groupId>io.swagger.core.v3</groupId>
+        <artifactId>swagger-annotations</artifactId>
+        <version>2.2.20</version>
+    </dependency>
 
     <!-- OpenFeign (eğer başka servise REST çağrısı yaparken kolaylık sağlamak isterseniz) -->
     <dependency>
