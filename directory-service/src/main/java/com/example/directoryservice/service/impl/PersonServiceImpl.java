@@ -34,9 +34,9 @@ public class PersonServiceImpl implements PersonService {
     public PersonDto createPerson(PersonDto personDto) {
         Person person = mapToEntity(personDto);
         System.out.println("Saving person: " + person.getId());
-        //Person savedPerson = personRepository.save(person);
-        personRepository.save(person);
-        if (Objects.isNull(person)) {
+        Person savedPerson = personRepository.save(person);
+        //personRepository.save(person);
+        if (Objects.isNull(savedPerson)) {
             throw new IllegalStateException("Saved person is null!");
         }
         DirectoryEvent event = new DirectoryEvent();
@@ -87,13 +87,14 @@ public class PersonServiceImpl implements PersonService {
             Contact contact = new Contact();
             contact.setId(contactDto.getId());
             contact.setContactType(contactDto.getContactType());
-            //person durumuna göre karar verelim
             contact.setPerson(fromDto(personDto));
-            if (personDto.getContacts() != null) {
-                personDto.getContacts().add(contact);
-            }else {
-                personDto.setContacts(List.of(contact));
-            }
+
+            // İletişim bilgilerini mutable bir liste olarak ayarla
+            List<Contact> mutableContacts = personDto.getContacts() != null
+                    ? new ArrayList<>(personDto.getContacts())
+                    : new ArrayList<>();
+            mutableContacts.add(contact);
+            personDto.setContacts(mutableContacts);
         }
         return personDto;
     }
@@ -129,7 +130,7 @@ public class PersonServiceImpl implements PersonService {
                 .build();
     }
 
-    private Person fromDto(PersonDto personDto) {
+    public Person fromDto(PersonDto personDto) {
         Person person = new Person();
 
         if (personDto.getId() != null) {

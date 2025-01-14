@@ -15,7 +15,7 @@ public class Report {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     private LocalDateTime requestTimeAt;
     @Enumerated(EnumType.STRING)

@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ReportDto {
-    private String id;
+    private Long id;
     private LocalDateTime requestTimeAt;
     private String status;
     private String reportData;
