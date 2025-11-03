@@ -39,6 +39,7 @@ public class ContactControllerTest {
         String personId = "123";
         ContactDto contactDto = new ContactDto();
         contactDto.setPersonId(personId);
+        contactDto.setContactDetail("john.doe@example.com");
 
         Long contactId = 456L;
         Contact contact = new Contact();
@@ -50,7 +51,7 @@ public class ContactControllerTest {
         // Act & Assert
         mockMvc.perform(post("/api/contacts") // "/contacts" uygun URL dizinine göre değiştirin
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{ \"personId\": \"123\", \"firstName\": \"John\", \"lastName\": \"Doe\" }")) // JSON payload örneği
+                        .content("{ \"personId\": \"123\", \"contactDetail\": \"john.doe@example.com\" }")) // JSON payload örneği
                 .andExpect(status().isCreated());
     }
 
@@ -67,7 +68,7 @@ public class ContactControllerTest {
         // Act & Assert
         mockMvc.perform(post("/api/contacts")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{ \"personId\": \"\", \"firstName\": \"John\", \"lastName\": \"Doe\" }")) // JSON payload
+                        .content("{ \"personId\": \"\" }")) // JSON payload
                 .andExpect(status().isBadRequest());
     }
 

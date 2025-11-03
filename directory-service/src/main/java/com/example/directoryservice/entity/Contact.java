@@ -21,6 +21,9 @@ public class Contact {
     @Enumerated(EnumType.STRING)
     private ContactType contactType;
 
+    @Column(name = "contact_detail")
+    private String contactDetail;
+
     @Column(name = "location")
     private String location; // Yeni alan
 

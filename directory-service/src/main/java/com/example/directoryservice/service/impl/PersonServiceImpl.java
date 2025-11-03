@@ -68,6 +68,8 @@ public class PersonServiceImpl implements PersonService {
             Contact contact = new Contact();
             contact.setId(contactDto.getId());
             contact.setContactType(contactDto.getContactType());
+            contact.setContactDetail(contactDto.getContactDetail());
+            contact.setLocation(contactDto.getLocation());
             contact.setPerson(person);
             return contact;
         }).toList();
@@ -87,6 +89,8 @@ public class PersonServiceImpl implements PersonService {
             Contact contact = new Contact();
             contact.setId(contactDto.getId());
             contact.setContactType(contactDto.getContactType());
+            contact.setContactDetail(contactDto.getContactDetail());
+            contact.setLocation(contactDto.getLocation());
             contact.setPerson(fromDto(personDto));
 
             // İletişim bilgilerini mutable bir liste olarak ayarla
