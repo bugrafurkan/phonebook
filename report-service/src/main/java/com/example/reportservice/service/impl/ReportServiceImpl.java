@@ -1,5 +1,6 @@
 package com.example.reportservice.service.impl;
 
+import com.example.directoryservice.entity.ContactType;
 import com.example.reportservice.client.DirectoryFeignClient;
 import com.example.reportservice.client.PersonResponse;
 import com.example.reportservice.dto.ReportDto;
@@ -75,9 +76,12 @@ public class ReportServiceImpl implements ReportService {
         Map<String, LocationStats> locationMap = new HashMap<>();
 
         for (PersonResponse p : persons) {
+            if (p.getContacts() == null) {
+                continue;
+            }
             // Kişinin Contact listesinde LOCATION tipindekileri ara
             p.getContacts().stream()
-                    .filter(c -> !c.getLocation().isBlank())
+                    .filter(c -> c.getLocation() != null && !c.getLocation().isBlank())
                     .forEach(contact -> {
                         String location = contact.getLocation(); // Örn. "Istanbul"
 
@@ -89,7 +93,7 @@ public class ReportServiceImpl implements ReportService {
                             stats.increasePersonCount(1); // Kişi sayısını 1 artır
 
                             // Eğer iletişim tipi telefon ise telefon sayısını artır
-                            if ("PHONE".equals(contact.getContactType())) {
+                            if (ContactType.PHONE.equals(contact.getContactType())) {
                                 stats.increasePhoneCount(1);
                             }
                         }
