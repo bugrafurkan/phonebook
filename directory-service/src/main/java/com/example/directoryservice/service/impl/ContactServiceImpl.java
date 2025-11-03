@@ -24,6 +24,7 @@ public class ContactServiceImpl implements ContactService {
     public Contact createContact(ContactDto contactDto) {
         Contact contact = new Contact();
         contact.setContactType(contactDto.getContactType());
+        contact.setContactDetail(contactDto.getContactDetail());
         Person person = personRepository.findById(contactDto.getPersonId())
                 .orElseThrow(() -> new RuntimeException("Person not found"));
         contact.setPerson(person);
@@ -43,6 +44,8 @@ public class ContactServiceImpl implements ContactService {
         ContactDto contactDto = new ContactDto();
         contactDto.setId(contact.getId()); // ID değerini aktarıyoruz
         contactDto.setContactType(contact.getContactType());
+        contactDto.setContactDetail(contact.getContactDetail());
+        contactDto.setLocation(contact.getLocation());
 
         // Eğer Contact ile bir Person ilişkiliyse, onun ID'sini de DTO'ya koyabiliriz
         if (contact.getPerson() != null) {

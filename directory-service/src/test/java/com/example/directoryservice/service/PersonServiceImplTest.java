@@ -118,6 +118,8 @@ class PersonServiceImplTest {
         ContactDto contactDto = new ContactDto();
         contactDto.setId(1L);
         contactDto.setContactType(ContactType.valueOf("EMAIL"));
+        contactDto.setContactDetail("alice@example.com");
+        contactDto.setLocation("Istanbul");
 
         PersonDto personDto = PersonDto.builder()
                 .id(personId)
