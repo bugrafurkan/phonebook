@@ -39,7 +39,7 @@ public class ReportController {
 
 @io.swagger.v3.oas.annotations.Operation(summary = "Get report by ID", description = "Fetch a specific report by its unique ID.")
 @Parameter(name = "id", description = "Unique identifier of the report to fetch", required = true)
-@GetMapping("/getReportById")
+@GetMapping("/{id}")
 public ResponseEntity<ReportDto> getReportById(@PathVariable Long id) {
         ReportDto reportDto = reportService.getReportById(id);
         if (Objects.isNull(reportDto)) {
@@ -50,7 +50,7 @@ public ResponseEntity<ReportDto> getReportById(@PathVariable Long id) {
 
 @io.swagger.v3.oas.annotations.Operation(summary = "Prepare a report", description = "Initiates an asynchronous preparation for the specified report.")
 @Parameter(name = "id", description = "Unique identifier of the report to prepare")
-@PostMapping("/prepare")
+@PostMapping("/{id}/prepare")
 public ResponseEntity<Void> prepareReport(@PathVariable Long id) {
         reportService.prepareReportAsync(id);
         return ResponseEntity.ok().build();
