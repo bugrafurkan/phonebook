@@ -55,7 +55,7 @@ public class ReportServiceImpl implements ReportService {
         report.setStatus(ReportStatus.PREPARING);
         report.setReport(null);
         Report saved = reportRepository.save(report);
-        return null;
+        return toReportDto(saved);
     }
 
     @Override
