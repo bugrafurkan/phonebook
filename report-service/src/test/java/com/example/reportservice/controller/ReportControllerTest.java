@@ -34,7 +34,7 @@ class ReportControllerTest {
     void setUp() {
         report = new ReportDto();
         report.setId(1L);
-        //report.setName("Sample Report");
+        report.setStatus("PREPARING");
     }
 
     @Test
@@ -43,9 +43,9 @@ class ReportControllerTest {
 
         mockMvc.perform(post("/api/reports/create")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-                //.andExpect(jsonPath("$.id").value(1L));
-                //.andExpect(jsonPath("$.name").value("Sample Report"));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.status").value("PREPARING"));
     }
 
     @Test
@@ -54,10 +54,10 @@ class ReportControllerTest {
 
         mockMvc.perform(get("/api/reports")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-                //.andExpect(jsonPath("$.size()").value(1));
-                //.andExpect(jsonPath("$[0].id").value(1L));
-                //.andExpect(jsonPath("$[0].name").value("Sample Report"));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()").value(1))
+                .andExpect(jsonPath("$[0].id").value(1L))
+                .andExpect(jsonPath("$[0].status").value("PREPARING"));
     }
 
     @Test
@@ -66,8 +66,8 @@ class ReportControllerTest {
 
         mockMvc.perform(get("/api/reports")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-                //.andExpect(jsonPath("$.size()").value(0));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()").value(0));
     }
 
     @Test
@@ -77,9 +77,9 @@ class ReportControllerTest {
         mockMvc.perform(get("/api/reports/getReportById")
                         .param("id", "1")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-                //.andExpect(jsonPath("$.id").value(1L))
-                //.andExpect(jsonPath("$.name").value("Sample Report"));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.status").value("PREPARING"));
     }
 
     @Test
