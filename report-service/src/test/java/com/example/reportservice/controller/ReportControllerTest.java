@@ -74,8 +74,7 @@ class ReportControllerTest {
     void getReportById_ShouldReturnReportWhenFound() throws Exception {
         Mockito.when(reportService.getReportById(1L)).thenReturn(report);
 
-        mockMvc.perform(get("/api/reports/getReportById")
-                        .param("id", "1")
+        mockMvc.perform(get("/api/reports/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
                 //.andExpect(jsonPath("$.id").value(1L))
@@ -86,8 +85,7 @@ class ReportControllerTest {
     void getReportById_ShouldReturnNotFoundWhenReportDoesNotExist() throws Exception {
         Mockito.when(reportService.getReportById(anyLong())).thenReturn(null);
 
-        mockMvc.perform(get("/api/reports/getReportById")
-                        .param("id", "1")
+        mockMvc.perform(get("/api/reports/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
